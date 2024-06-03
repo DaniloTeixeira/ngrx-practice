@@ -1,0 +1,105 @@
+<form
+  style="
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    width: 400px;
+    gap: 20px;
+  "
+>
+  <div style="display: flex; flex-direction: column; gap: 10px; width: 100%">
+    <label>Name</label>
+    <input type="text" [(ngModel)]="name" name="name" />
+
+    <label>Email</label>
+    <input type="text" [(ngModel)]="email" name="email" />
+
+    <label for="">Type</label>
+    <select [(ngModel)]="type" name="type">
+      <option value="admin">Admin</option>
+      <option value="viewer">Viewer</option>
+    </select>
+    <button
+      type="button"
+      style="
+        background-color: green;
+        color: #fff;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+      "
+      (click)="onAddUser()"
+    >
+      ADD
+    </button>
+  </div>
+
+  <div>
+    <button
+      type="button"
+      style="
+        background-color: blue;
+        color: #fff;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+      "
+      (click)="onUpdateUser()"
+    >
+      UPDATE
+    </button>
+  </div>
+</form>
+
+<br />
+<hr />
+
+@for (user of users$ | async; track user.id; let last = $last) {
+<div style="display: flex; align-items: center; justify-content: space-between">
+  <div>
+    <p><b>ID: </b> {{ user.id }}</p>
+    <p><b>Name: </b> {{ user.name }}</p>
+    <p><b>E-mail: </b> {{ user.email }}</p>
+    <p><b>Type: </b> {{ user.type }}</p>
+  </div>
+
+  <div style="display: flex; gap: 15px">
+    <button
+      type="button"
+      style="
+        background-color: crimson;
+        color: #fff;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+      "
+      (click)="onDeleteUser(user)"
+    >
+      DELETE
+    </button>
+
+    <button
+      type="button"
+      style="
+        background-color: rebeccapurple;
+        color: #fff;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+      "
+      (click)="onSelectUser(user)"
+    >
+      SELECT
+    </button>
+  </div>
+</div>
+@if (!last) {
+<hr style="border: 1px solid whitesmoke" />
+} } @empty {
+<p>No users</p>
+
+}
